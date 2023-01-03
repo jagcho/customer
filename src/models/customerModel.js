@@ -11,7 +11,7 @@ const customerSchema = new mongoose.Schema({
     gender: {
         type: String,
         require: true,
-        enum: ["Male", "Female"]
+        enum: ["Male", "Female","Others"]
     },
     mobile:{
         type:Number,

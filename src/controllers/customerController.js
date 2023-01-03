@@ -15,7 +15,7 @@ const createCustomer = async (req, res) => {
         }
 
         if (!isValidstring(name)) {
-            return res.status(400).send({ status: false, mag: " name should be in onlyalphabate" })
+            return res.status(400).send({ status: false, mag: " name should be letters" })
         }
 
         if (!email) {
@@ -44,14 +44,14 @@ const createCustomer = async (req, res) => {
         }
 
 
-        let arr = ["Male", "Female"]
+        let arr = ["Male", "Female","Others"]
         if (!arr.includes(gender)) {
-            return res.status(400).send({ status: false, mag: " gender should be enum  Male or Female" })
+            return res.status(400).send({ status: false, mag: " gender should Male,Female or others" })
         }
         if (category) {
             let array = ["Regular", "Gold", "Platinum"]
             if (!array.includes(category)) {
-                return res.status(400).send({ status: false, mag: ` category should be enum  ["Regular", "Gold", "Platinum"] only` })
+                return res.status(400).send({ status: false, mag: `category should be enum  ["Regular", "Gold", "Platinum"] only` })
             }
         }
         if (!age) {

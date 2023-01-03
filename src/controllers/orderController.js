@@ -6,7 +6,7 @@ const createOrder = async (req, res) => {
     try {
         let data = req.body
      
-        let {customerId,orderNumber}=data
+        let {customerId}=data
         let existCustomer = await customerModel.findById( { _id:customerId} )
         if (!existCustomer) {
             return res.status(400).send({ status: false, msg: "Customer not exist" })
@@ -32,18 +32,20 @@ const createOrder = async (req, res) => {
         }
 
         if (order.orderNumber == 19) {
-            return res.status(201).send({ status: true,message:"Get 20 percent discount by adding 1 more order and become Platinum member", data: data })
+            let discount= (order.price/100)*10
+            order._doc.discount=discount;
+            return res.status(201).send({ status: true,message:"Get 20 percent discount by adding 1 more order and become Platinum member", data: order })
            
         }
 
         if (order.orderNumber == 20) {
             const update= await customerModel.findOneAndUpdate({ _id: customerId }, { category: "platinum" }, { new: true })
-            let discount= (order.price/100)*10
+            let discount= (order.price/100)*20
             order._doc.discount=discount;
              return res.status(201).send({ status: true, data:update, order:order})
          }
 
-        if(order.orderNumber>10 && order.orderNumber<=20){
+        if(order.orderNumber>10 && order.orderNumber<20){
            let discount= (order.price/100)*10
             order._doc.discount=discount;
             existCustomer = await customerModel.findById( { _id:customerId} ) 
