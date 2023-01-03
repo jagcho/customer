@@ -37,6 +37,10 @@ const customerSchema = new mongoose.Schema({
         type:String,
         minlength: 8,
         require:true
+    },
+    totalDiscount:{
+        type:Number,
+        default:0
     }
 }, {timestamps:true})
 
